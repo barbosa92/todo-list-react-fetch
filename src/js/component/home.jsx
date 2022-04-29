@@ -1,26 +1,56 @@
-import React from "react";
-
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+import React, { useState } from "react";
 
 //create your first component
-const Home = () => {
+function ToDoList() {
+	const [tarea, setTarea] = useState("");
+	const [lista, setLista] = useState([]);
+
+	//Recibe un key de toda la lista y filtra para actualizar la lista con todos los elementos menos aquel cuya key se ha pasado
+	function borrar(posicion) {
+		let listaFiltrada = lista.filter((valor, index) => {
+			return index != posicion;
+		});
+		setLista(listaFiltrada);
+	}
+
+	// function limpiarInput () {
+
+	// }
+
 	return (
-		<div>
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+		<div className="ToDoList">
+			<h1>To Do List</h1>
+			<input
+				placeholder="Add to do here"
+				onChange={(e) => {
+					setTarea(e.target.value);
+				}}
+				ref="entrada"
+			/>
+			<button
+				onClick={() => {
+					setLista([...lista, tarea]);
+					// this.entrada.value = "";
+				}}>
+				Agregar tarea
+			</button>
+			<ul>
+				{lista.map(function (valor, i) {
+					return (
+						<li key={i}>
+							{valor}
+							<button
+								onClick={() => {
+									borrar(i);
+								}}>
+								X
+							</button>
+						</li>
+					);
+				})}
+			</ul>
 		</div>
 	);
-};
+}
 
-export default Home;
+export default ToDoList;
