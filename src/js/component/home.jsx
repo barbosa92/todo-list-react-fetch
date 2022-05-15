@@ -21,6 +21,7 @@ export default function Home() {
 	}
 
 	function borrar(posicion) {
+		console.log("entra en filtrar");
 		let listaFiltrada = lista.filter((valor, index) => {
 			return index != posicion;
 		});
@@ -50,80 +51,44 @@ export default function Home() {
 	}
 
 	return (
-		<div className="Home">
+		<div className="home">
 			<h1>To Do List</h1>
-			<input
-				placeholder="Add to do here"
-				onChange={(e) => {
-					setTarea(e.target.value);
-				}}
-			/>
-			<button
-				onClick={() => {
-					setLista([...lista, { label: tarea, done: false }]);
-				}}>
-				Agregar tarea
-			</button>
+			<div className="entrada">
+				<input
+					placeholder="Add to do here"
+					onChange={(e) => {
+						setTarea(e.target.value);
+					}}
+				/>
+				<button
+					className="ml-3"
+					onClick={() => {
+						setLista([...lista, { label: tarea, done: false }]);
+					}}>
+					Agregar tarea
+				</button>
+			</div>
+
 			<ul>
 				{lista?.map((object, index) => {
-					return (
-						<li key={index}>
-							{object.label}
-							<button
-								onClick={() => {
-									borrar(index);
-									console.log(lista);
-									console.log(setLista);
-								}}>
-								X
-							</button>
-						</li>
-					);
+					if (object.label == "sample task") {
+					} else {
+						return (
+							<li className="mt-2" key={index}>
+								{object.label}
+								<button
+									onClick={() => {
+										borrar(index);
+										console.log(lista);
+										console.log(setLista);
+									}}>
+									X
+								</button>
+							</li>
+						);
+					}
 				})}
 			</ul>
 		</div>
 	);
 }
-
-//Recibe un key de toda la lista y filtra para actualizar la lista con todos los elementos menos aquel cuya key se ha pasado
-// function borrar(posicion) {
-// 	let listaFiltrada = lista.filter((valor, index) => {
-// 		return index != posicion;
-// 	});
-// 	setLista(listaFiltrada);
-// }
-
-// return (
-// 	<div className="ToDoList">
-// 		<h1>To Do List</h1>
-// 		<input
-// 			placeholder="Add to do here"
-// 			onChange={(e) => {
-// 				setTarea(e.target.value);
-// 			}}
-// 		/>
-// 		<button
-// 			onClick={() => {
-// 				setLista([...lista, tarea]);
-// 			}}>
-// 			Agregar tarea
-// 		</button>
-// 		<ul>
-// 			{lista.map(function (valor, i) {
-// 				return (
-// 					<li key={i}>
-// 						{lista?.map((object, index) => {
-// 			return <li key={index}>{object.label}</li>;
-// 		})}
-// 						<button
-// 							onClick={() => {
-// 								borrar(i);
-// 							}}>
-// 							X
-// 						</button>
-// 					</li>
-// 				);
-// 			})}
-// 		</ul>
-// 	</div>
-// );
